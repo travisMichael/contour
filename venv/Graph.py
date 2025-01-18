@@ -76,20 +76,7 @@ class Graph:
 
 
 if __name__ == "__main__":
-    # poly_image = cv2.imread('output/polygon.png')
-    poly_image = cv2.imread('output/result_4.jpeg')
-    gray_image = cv2.cvtColor(poly_image, cv2.COLOR_BGR2GRAY)
-    gi = np.float32(gray_image)
-    graph = Graph(gi)
-    graph.step_0()
-    image = D.draw_edges_from_graph(graph)
-    cv2.imwrite('graph.png', image)
-    a = [[1, 2], [3,4]]
-    print(a[0][0])
-    d = {}
-    r = d.get('one', 1)
+    print("done")
 
-    print('h')
-    print(a[1][1])
 
 
