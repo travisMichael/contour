@@ -1,9 +1,12 @@
 import Vertex as V
 import Edge as E
 import Cell as C
-import Draw as D
-import cv2
-import numpy as np
+import color_util as cUtil
+
+
+def get_zero_crossing_info(intensity_1, intensity_2):
+    return ((intensity_1 > 0 > intensity_2) or (intensity_1 < 0 < intensity_2),
+            abs(intensity_1 - intensity_2))
 
 
 # container class for vertices and edges
@@ -16,6 +19,8 @@ class Graph:
         self.h = h
         self.w = w
         self.scale = 20
+        self.isZeroCrossing = False
+        self.maxZeroCrossMag = 0.0
         nodes = C.initialize_cells(image)
         dic = {}
         # create horizontal edges
@@ -73,6 +78,28 @@ class Graph:
                 e = self.nodes[i][j].create_initial_edge()
                 if e is not None:
                     self.edges.append(e)
+
+    def step_zero_cross(self):
+        # todo - for each cell, check if south edge is zc, check if east edge is zc
+        max_mag = 0.0
+        for i in range(self.h):
+            for j in range(self.w):
+                node = self.nodes[i][j]
+                if j != self.w - 1:
+                    east_edge = node.east
+                    is_zero, mag = get_zero_crossing_info(node.color, east_edge.north.color)
+                    east_edge.isZeroCrossing = is_zero
+                    east_edge.zeroCrossMag = mag
+                    max_mag = max(max_mag, mag)
+                    east_edge.color = cUtil.get_color_from_magnitude(mag, 50)
+                if i != self.h - 1:
+                    south_edge = node.south
+                    is_zero, mag = get_zero_crossing_info(node.color, south_edge.south.color)
+                    south_edge.isZeroCrossing = is_zero
+                    south_edge.zeroCrossMag = mag
+                    max_mag = max(max_mag, mag)
+                    south_edge.color = cUtil.get_color_from_magnitude(mag, 50)
+        self.maxZeroCrossMag = max_mag
 
 
 if __name__ == "__main__":

@@ -13,6 +13,8 @@ class Edge:
         self.south = None
         self.border = border,
         self.color = color
+        self.isZeroCrossing = False
+        self.zeroCrossMag = 0.0
 
     def add_south(self, s):
         self.south = s

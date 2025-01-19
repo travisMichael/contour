@@ -13,6 +13,15 @@ def draw_edges_from_graph(graph):
     return image
 
 
+def draw_zero_crossings_from_graph(graph):
+    image = np.ones((graph.h * graph.scale, graph.w * graph.scale, 3)) * 255
+    for edge in graph.edges:
+        if (edge.isZeroCrossing):
+            draw_edge_at_scale(edge, graph.scale, image)
+
+    return image
+
+
 def draw_edges(edgeList):
     image = np.ones((50, 50, 3)) * 255
     for edge in edgeList:

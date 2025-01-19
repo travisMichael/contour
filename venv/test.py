@@ -15,18 +15,23 @@ def generate_derivative_visual():
 
 
 def generate_laplacian(input_image):
-    blurred_image = cv2.GaussianBlur(input_image, (3, 3), 1.0)
+    blurred_image = cv2.GaussianBlur(input_image, (3, 3), 3.0)
     return cv2.Laplacian(blurred_image, cv2.CV_16S, ksize=3)
 
 
 def generate_zero_crossing_visual(input_image):
     laplacian_image = generate_laplacian(input_image)
-    # todo create graph edges where there is a zero crossing
+    gi = np.float32(laplacian_image)
+    graph = g.Graph(gi)
+    graph.step_zero_cross()
+    image = d.draw_zero_crossings_from_graph(graph)
+    cv2.imwrite('output/zero_crossings.png', image)
 
 
 if __name__ == "__main__":
     poly_image = cv2.imread('images/result_4.jpeg')
     gray_image = cv2.cvtColor(poly_image, cv2.COLOR_BGR2GRAY)
+    cv2.imwrite('images/gray.jpeg', gray_image)
     generate_zero_crossing_visual(gray_image)
 
     print("done")

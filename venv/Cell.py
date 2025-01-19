@@ -2,6 +2,7 @@ import math
 import Vertex as V
 import Edge as E
 import numpy as np
+import color_util as cUtil
 
 
 # utility method
@@ -17,16 +18,6 @@ def initialize_cells(img):
         array.append(row)
 
     return array
-
-
-def get_color_from_magnitude(mag):
-    max_mag = 40
-    m = min(mag, max_mag)
-
-    red = round((m/max_mag) * 255)
-    blue = 255 - red
-
-    return blue, 0, red
 
 
 def intersection_points(x, y):
@@ -82,7 +73,7 @@ class Cell:
             return None
         delta_x, delta_y, magnitude = self.get_gradient()
         print(magnitude)
-        color = get_color_from_magnitude(magnitude)
+        color = cUtil.get_color_from_magnitude(magnitude)
 
         if abs(delta_x) < 0.01 and abs(delta_y) < 0.01:
             return None
