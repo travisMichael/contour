@@ -19,6 +19,7 @@ def draw_zero_crossings_from_graph(graph):
         if (edge.isZeroCrossing):
             draw_edge_at_scale(edge, graph.scale, image)
 
+    cv2.circle(image, (2200,1600), 50, (255,0,0),3)
     return image
 
 

@@ -4,4 +4,5 @@ venv/images
 venv/lib
 venv/output
 venv/pyvenv.cfg
+keep
 .idea
