@@ -14,13 +14,23 @@ def generate_derivative_visual():
     cv2.imwrite('output/graph.png', image)
 
 
+def generate_blur(input_image):
+    sigma = 1
+    kernel_size = 3
+    result = input_image
+    for i in range(1):
+        result = cv2.GaussianBlur(result, (kernel_size, kernel_size), sigma)
+    return result
+
+
 def generate_laplacian(input_image):
-    blurred_image = cv2.GaussianBlur(input_image, (3, 3), 3.0)
+    blurred_image = generate_blur(input_image)
     return cv2.Laplacian(blurred_image, cv2.CV_16S, ksize=3)
 
 
 def generate_zero_crossing_visual(input_image):
     laplacian_image = generate_laplacian(input_image)
+    # blurred_image = generate_blur(input_image)
     gi = np.float32(laplacian_image)
     graph = g.Graph(gi)
     graph.step_zero_cross()

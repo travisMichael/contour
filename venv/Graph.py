@@ -88,7 +88,7 @@ class Graph:
                 if j != self.w - 1:
                     east_edge = node.east
                     is_zero, mag = get_zero_crossing_info(node.color, east_edge.north.color)
-                    if mag > 10:
+                    if mag > 1:
                         east_edge.isZeroCrossing = is_zero
                         east_edge.zeroCrossMag = mag
                         max_mag = max(max_mag, mag)
@@ -96,7 +96,7 @@ class Graph:
                 if i != self.h - 1:
                     south_edge = node.south
                     is_zero, mag = get_zero_crossing_info(node.color, south_edge.south.color)
-                    if mag > 10:
+                    if mag > 1:
                         south_edge.isZeroCrossing = is_zero
                         south_edge.zeroCrossMag = mag
                         max_mag = max(max_mag, mag)
