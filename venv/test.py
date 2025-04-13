@@ -39,9 +39,17 @@ def generate_zero_crossing_visual(input_image):
 
 
 if __name__ == "__main__":
-    poly_image = cv2.imread('images/result_4.jpeg')
-    gray_image = cv2.cvtColor(poly_image, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite('images/gray.jpeg', gray_image)
-    generate_zero_crossing_visual(gray_image)
+    signal = np.array([1, -1, 1, -1, 1, -1])
+    signal_prime = np.diff(signal)
+    signal_prime_2 = np.diff(signal_prime)
+
+    k = signal_prime / ((1 + signal_prime_2) ** (3/2))
+
+    # | 1 | 5 | 1 | 5 | 1
+    # | 1 | 3 | 5 | 1 | 5 | 1
+    # poly_image = cv2.imread('images/result_4.jpeg')
+    # gray_image = cv2.cvtColor(poly_image, cv2.COLOR_BGR2GRAY)
+    # cv2.imwrite('images/gray.jpeg', gray_image)
+    # generate_zero_crossing_visual(gray_image)
 
     print("done")
