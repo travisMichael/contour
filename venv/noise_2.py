@@ -32,6 +32,15 @@ def zero_cross(x):
     return z
 
 
+def iterate_and_update(x, n=100):
+    x_hat = x
+    for i in range(100):
+        x_hat, cost = d(x_hat, 0.1)
+        print(cost)
+
+    return x_hat
+
+
 if __name__ == "__main__":
 
     x = np.array([[0, -1, 3, 5, 3, 8]], dtype=np.int32)
